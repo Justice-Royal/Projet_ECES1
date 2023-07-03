@@ -1,0 +1,11 @@
+{% extends 'herite_page.html' %}
+{% block corps_page %}
+<br/>
+  <form method="post" >
+    <h1 class = "text-center">Ajouter</h1><br>
+    {% csrf_token %} 
+    {{ form.as_p }}
+    <input type = "submit" class="btn btn-secondary btn" type="button">
+  </form>
+
+{% endblock %}

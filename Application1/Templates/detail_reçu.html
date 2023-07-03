@@ -1,0 +1,83 @@
+{% extends 'herite_page.html' %}
+
+{% block corps_page %}
+<br />
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h1 class="text-center">Commande effectuée</h1><br>
+          <h2 class="lead">Nom du client: {{receipt.delivre_A | title}}</h2>
+        </div>
+        <div class="card-block">
+          <div class="table-responsive">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <td><strong>Nom de l'article</strong></td>
+                  <td class="text-xs-center"><strong>Quantité d'article</strong></td>
+                  <td class="text-xs-right"><strong>Facture Total(FCFA)</strong></td>
+                  <td class="text-xs-right"><strong>Montant Obtenu(FCFA)</strong></td>
+                  <td class="text-xs-right">
+                    <strong>Total change(FCFA)</strong>
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{receipt.article| title}}</td>
+                  <td class="text-xs-center">{{receipt.quantite}}</td>
+                  <td class="text-xs-center">{{receipt.get_total | title}} FCFA</td>
+                  <td class="text-xs-right">{{ receipt.montant_obtenue }} FCFA</td>
+                  <td class="text-xs-right">{{ receipt.get_change }} FCFA</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Styles pour la page */
+  .container {
+    margin-top: 30px;
+  }
+
+  .card {
+    border: none;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-header {
+    background-color: #f8f8f8;
+    padding: 20px;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .lead {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  table {
+    font-size: 16px;
+  }
+
+  .text-xs-center {
+    text-align: center;
+  }
+
+  .text-xs-right {
+    text-align: right;
+  }
+</style>
+
+{% endblock %}

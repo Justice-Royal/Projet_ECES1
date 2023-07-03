@@ -1,0 +1,167 @@
+{% extends 'herite_page.html' %}
+
+{% block corps_page %}
+
+  <div class="container">
+    <h1>Bienvenue sur notre site</h1>
+    
+    <div class="row">
+      <div class="col-md-6">
+        <h2>Dernières ventes</h2>
+        <ul>
+          {% for sale in sales %}
+            <li>{{ sale.date }} - {{ sale.article.nom_article }} - {{ sale.montant_obtenu }}€</li>
+          {% empty %}
+            <li>Aucune vente enregistrée</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      
+      <div class="col-md-6">
+        <h2>Produits en stock</h2>
+        <ul>
+          {% for product in products %}
+            <li>{{ product.nom_article }} ({{ product.quantite_total }} disponibles)</li>
+          {% empty %}
+            <li>Aucun produit en stock</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    
+    <div class="animation-container">
+      <div class="animation-item">
+        <i class="fas fa-star"></i>
+      </div>
+      <div class="animation-item">
+        <i class="fas fa-heart"></i>
+      </div>
+      <div class="animation-item">
+        <i class="fas fa-circle"></i>
+      </div>
+    </div>
+  </div>
+<div class="container">
+  <button onclick="redirectToWhatsApp()" class="btn btn-primary">Contact via WhatsApp</button>
+  <button onclick="redirectToEmail()" class="btn btn-primary">Contact via Email</button>
+</div>
+ <style>
+    .container {
+  text-align: center;
+  color: #333; /* Couleur du texte */
+  background-color: #25a8ff; /* Couleur de fond */
+  padding: 20px;
+}
+
+h1 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.col-md-6 {
+  flex-basis: 48%;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  margin-bottom: 5px;
+}
+
+.animation-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.animation-item {
+  display: inline-block;
+  font-size: 24px;
+  margin: 0 10px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+ </style> 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  // Fonction pour mettre à jour les données de la page d'accueil
+  function updateHomePageData() {
+    $.ajax({
+      url: '/ajax_home_data/',  // URL de la vue Django créée précédemment
+      type: 'GET',
+      dataType: 'json',
+      success: function(data) {
+        // Mettre à jour les éléments de la page avec les nouvelles données
+        // Exemple : Mettre à jour les dernières ventes
+        var salesContainer = $('#latest-sales-container');
+        salesContainer.empty();  // Supprimer les anciennes données
+        $.each(data.latest_sales, function(index, sale) {
+          // Créer les éléments HTML pour chaque vente
+          var saleItem = $('<li>').text('Vente ID: ' + sale.id + ', Montant: ' + sale.montant_obtenu);
+          salesContainer.append(saleItem);
+        });
+
+        // Mettre à jour les produits en stock
+        // ...
+
+        // Planifier
+      }
+    });
+  }
+
+  // Appeler la fonction de mise à jour au chargement initial de la page
+  updateHomePageData();
+
+  // Planifier des mises à jour périodiques
+  setInterval(updateHomePageData, 5000);  // Mettre à jour toutes les 5 secondes, par exemple
+});
+function redirectToWhatsApp() {
+    // Remplacez le numéro de téléphone avec votre numéro de téléphone WhatsApp
+    var phoneNumber = '065646494';
+
+    // Construire le lien WhatsApp avec le numéro de téléphone et un message optionnel
+    var whatsappLink = 'https://api.whatsapp.com/send?phone=' + phoneNumber + '&text=Bonjour,%20je%20suis%20intéressé%20par%20vos%20produits.';
+
+    // Rediriger vers le lien WhatsApp
+    window.location.href = whatsappLink;
+  }
+
+  function redirectToEmail() {
+    // Remplacez l'adresse email avec votre adresse email
+    var email = 'Akoulyj5@gmail.com';
+
+    // Construire le lien mailto avec l'adresse email, le sujet et le corps du message
+    var emailLink = 'mailto:' + email + '?subject=Demande%20d%27information&body=Bonjour,%20je%20suis%20intéressé%20par%20vos%20produits.';
+
+    // Rediriger vers le lien mailto
+    window.location.href = emailLink;
+  }
+
+</script>
+
+{% endblock %}

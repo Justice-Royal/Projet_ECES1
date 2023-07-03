@@ -1,0 +1,96 @@
+{% extends 'herite_page.html' %}
+
+{% block corps_page %}
+<div class="container">
+  <h1 class="card-header text-center">Tous les reçus</h1><br>
+  {% for sale in sales %}
+  <div class="card">
+    <div class="card-body">
+      <h3 class="card-title">Client : {{sale.delivre_A | title}}</h3>
+      <h6 class="card-text">Article : {{sale.article}}</h6>
+      <h6 class="card-text">Montant reçu:  {{ sale.montant_obtenue }} FCFA</h6>
+      <h6 class="card-text">Quantité: {{sale.quantite }}</h6>
+      <h2>Total Price :  {{ sale.get_total }} FCFA</h2>
+      <div style="flex: 1">
+        <h6 class="card-text">Change Collected:  {{ sale.get_change }} FCFA</h6>
+        <a href="{% url 'receipt_detail' sale.id %}">
+          <input
+            type="submit"
+            value="Final Reçu"
+            class="btn btn-danger"
+            type="button"
+          />
+        </a>
+      </div>
+    </div>
+  </div>
+  <br />
+  {% endfor %}
+</div>
+
+<style>
+  /* Styles pour la page */
+  .container {
+    margin-top: 30px;
+  }
+
+  .card {
+    border: none;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-header {
+    background-color: #f8f8f8;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .card-body {
+    padding: 20px;
+  }
+
+  .card-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .card-text {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+
+  h2 {
+    font-size: 32px;
+    margin-top: 20px;
+  }
+
+  .btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+  }
+
+  .btn-danger:hover {
+    background-color: #c82333;
+  }
+</style>
+
+<script>
+  // JavaScript pour l'animation
+  window.addEventListener('load', function() {
+    var cards = document.querySelectorAll('.card');
+    cards.forEach(function(card, index) {
+      card.style.animationDelay = index * 0.1 + 's';
+      card.classList.add('fade-in');
+    });
+  });
+</script>
+
+{% endblock %}

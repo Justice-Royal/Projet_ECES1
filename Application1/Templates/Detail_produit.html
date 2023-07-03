@@ -1,0 +1,52 @@
+{% extends 'herite_page.html' %}
+
+{% block corps_page %}
+<br></br>
+
+<div class="container">
+  <a href="{% url 'ajouter_vente' product.id %}" class="custom-button"><input type="submit" value="Acheter" class="btn btn-secondary" btn type="button"></a>
+  <a href="{% url 'create' %}" class="custom-button"><input type="submit" value="Add to Stock" class="btn btn-secondary btn" type="button"></a>
+</div>
+
+<br></br>
+<div class="container">
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Categorie</th>
+        <th scope="col">Nom de l'article</th>
+        <th scope="col">Quantité</th>
+        <th scope="col">Prix Unitaire(₦)</th>   
+      </tr>
+    </thead>
+    <tbody>
+      <tr>    
+        <td>{{ product.nom_categorie }}</td>
+        <td>{{ product.nom_article }}</td>
+        <td>{{ product.quantite_total }}</td>
+        <td>₦{{ product.prix_unitaire }}</td>   
+      </tr>
+    </tbody>  
+  </table>
+</div>
+
+<style>
+  /* Styles pour les boutons personnalisés */
+  .custom-button {
+    display: inline-block;
+    margin-right: 10px;
+    background-color: #25a8ff;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+  
+  /* Styles pour les titres en gras et plus grands */
+  h4 {
+    font-size: 20px;
+    font-weight: bold;
+  }
+</style>
+
+{% endblock %}
