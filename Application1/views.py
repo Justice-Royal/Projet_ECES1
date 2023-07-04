@@ -100,7 +100,7 @@ def connex(request):
         else:
             print("User does not exist")
 
-    return render(request, 'authentification/connexion.html', {})
+    return render(request, 'authentification/connexion.html',)
 
 # Mot de passe oublié
 def forgot_password(request):
