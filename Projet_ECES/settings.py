@@ -28,7 +28,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://royal-akouly.onrender.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
